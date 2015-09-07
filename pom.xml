@@ -175,9 +175,9 @@
 		</dependency>
 	</dependencies>
 	<scm>
-		<connection>scm:git:git@github.com:fboucquez/jira-maven-plugin.git</connection>
-		<developerConnection>scm:git:git@github.com:fboucquez/jira-maven-plugin.git</developerConnection>
-		<url>https://github.com/fboucquez/jira-maven-plugin</url>
+		<connection>scm:git:git@github.com:schrepfler/jira-maven-plugin.git</connection>
+		<developerConnection>scm:git:git@github.com:schrepfler/jira-maven-plugin.git</developerConnection>
+		<url>https://github.com/schrepfler/jira-maven-plugin</url>
 	</scm>
 	<build>
 		<pluginManagement>
@@ -197,7 +197,6 @@
 					<artifactId>versions-maven-plugin</artifactId>
 					<version>${versions.maven.plugin.version}</version>
 				</plugin>
-				<!--  
 				<plugin>
 					<groupId>external.atlassian.jgitflow</groupId>
 					<artifactId>jgitflow-maven-plugin</artifactId>
@@ -208,7 +207,6 @@
 					<artifactId>nexus-staging-maven-plugin</artifactId>
 					<version>${nexus.staging.maven.plugin.version}</version>
 				</plugin>
-				-->
 			</plugins>
 		</pluginManagement>
 		<plugins>
