@@ -283,7 +283,7 @@
 		</plugins>
 	</reporting>
 
-<!--
+	<!-- -->
 	<profiles>
 		<profile>
 			<id>release-sign-artifacts</id>
@@ -301,11 +301,10 @@
 						<version>${maven.gpg.plugin.version}</version>
 						<executions>
 							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
+								<phase>none</phase>
+								<!-- <id>sign-artifacts</id> 
+								<phase>verify</phase> <goals> <goal>sign</goal> 
+									</goals> -->
 							</execution>
 						</executions>
 					</plugin>
@@ -313,6 +312,6 @@
 			</build>
 		</profile>
 	</profiles>
-  -->
+
 </project>
 
