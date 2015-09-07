@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
 import org.joda.time.DateTime;
 
@@ -26,8 +27,7 @@ public class ReleaseVersionMojo extends AbstractJiraMojo {
 	/**
 	 * Released Version
 	 * 
-	 * @parameter property="releaseVersion"
-	 *            default-value="${project.version}"
+	 * @parameter property="releaseVersion" default-value="${project.version}"
 	 */
 	String releaseVersion;
 
@@ -41,18 +41,23 @@ public class ReleaseVersionMojo extends AbstractJiraMojo {
 	/**
 	 * Comparator for discovering the latest release
 	 * 
-	 * @parameter 
-	 *            implementation="com.george.plugins.jira.RemoteVersionComparator"
+	 * @parameter implementation=
+	 *            "com.george.plugins.jira.RemoteVersionComparator"
 	 */
 	Comparator<Version> versionComparator = new VersionComparator();
 
 	@Override
 	public void doExecute() throws Exception {
+
+		if (jiraProjectKey == null) {
+			throw new MojoExecutionException("JIRA Project Key could not be resolved");
+		}
 		Log log = getLog();
 		log.debug("Login for: " + jiraRestClient.getSessionClient().getCurrentSession().claim().getUsername());
 		Project project = jiraRestClient.getProjectClient().getProject(jiraProjectKey).claim();
 		Iterable<Version> versions = project.getVersions();
-		String thisReleaseVersion = (autoDiscoverLatestRelease) ? calculateLatestReleaseVersion(versions):releaseVersion;
+		String thisReleaseVersion = (autoDiscoverLatestRelease) ? calculateLatestReleaseVersion(versions)
+				: releaseVersion;
 		if (thisReleaseVersion != null) {
 			log.info("Releasing Version " + this.releaseVersion);
 			markVersionAsReleased(versions, thisReleaseVersion);
@@ -99,21 +104,26 @@ public class ReleaseVersionMojo extends AbstractJiraMojo {
 		return versionExists;
 	}
 
-    /**
-     * Release version
-     * @param versions
-     * @param releaseVersion
-     * @return
-     */
+	/**
+	 * Release version
+	 * 
+	 * @param versions
+	 * @param releaseVersion
+	 * @return
+	 */
 	private Version markVersionAsReleased(Iterable<Version> versions, String releaseVersion) {
 		Version ret = null;
 		if (versions != null) {
 			for (Version remoteReleasedVersion : versions) {
-				if (releaseVersion.equalsIgnoreCase(remoteReleasedVersion.getName()) && !remoteReleasedVersion.isReleased()) {
+				if (releaseVersion.equalsIgnoreCase(remoteReleasedVersion.getName())
+						&& !remoteReleasedVersion.isReleased()) {
 
-                    VersionInput updateVersionInput = VersionInput.create(jiraProjectKey, remoteReleasedVersion.getName(), remoteReleasedVersion.getDescription(), new DateTime(), false, true);
+					VersionInput updateVersionInput = VersionInput.create(jiraProjectKey,
+							remoteReleasedVersion.getName(), remoteReleasedVersion.getDescription(), new DateTime(),
+							false, true);
 
-					Version updatedVersion = jiraRestClient.getVersionRestClient().updateVersion(remoteReleasedVersion.getSelf(), updateVersionInput).claim();
+					Version updatedVersion = jiraRestClient.getVersionRestClient()
+							.updateVersion(remoteReleasedVersion.getSelf(), updateVersionInput).claim();
 
 					getLog().info("Version " + remoteReleasedVersion.getName() + " was released in JIRA.");
 					ret = updatedVersion;

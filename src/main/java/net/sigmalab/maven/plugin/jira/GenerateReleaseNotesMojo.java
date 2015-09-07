@@ -13,13 +13,15 @@ import java.util.List;
 import com.atlassian.jira.rest.client.domain.BasicIssue;
 import com.atlassian.jira.rest.client.domain.Issue;
 import com.atlassian.jira.rest.client.domain.SearchResult;
+
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
 
 /**
  * Goal that generates release notes based on a version in a JIRA project.
  * 
- * NOTE: REST API access must be enabled in your JIRA installation. Check JIRA docs
- * for more info.
+ * NOTE: REST API access must be enabled in your JIRA installation. Check JIRA
+ * docs for more info.
  * 
  * @goal generate-release-notes
  * @phase deploy
@@ -57,8 +59,7 @@ public class GenerateReleaseNotesMojo extends AbstractJiraMojo {
 	/**
 	 * Released Version
 	 * 
-	 * @parameter property="releaseVersion"
-	 *            default-value="${project.version}"
+	 * @parameter property="releaseVersion" default-value="${project.version}"
 	 * @required
 	 */
 	String releaseVersion;
@@ -88,16 +89,21 @@ public class GenerateReleaseNotesMojo extends AbstractJiraMojo {
 
 	@Override
 	public void doExecute() throws Exception {
-        Iterable<Issue> issues = getIssues();
+		Iterable<Issue> issues = getIssues();
 		output(issues);
 	}
 
 	/**
 	 * Recover issues from JIRA based on JQL Filter
-     */
+	 * 
+	 * @throws MojoExecutionException
+	 */
 
-	Iterable<Issue> getIssues() {
+	Iterable<Issue> getIssues() throws MojoExecutionException {
 
+		if (jqlTemplate == null) {
+			throw new MojoExecutionException("JQL Template could not be resolved");
+		}
 
 		Log log = getLog();
 		String jql = format(jqlTemplate, jiraProjectKey, releaseVersion);
@@ -105,20 +111,18 @@ public class GenerateReleaseNotesMojo extends AbstractJiraMojo {
 			log.info("JQL: " + jql);
 		}
 
-        SearchResult searchResult = jiraRestClient.getSearchClient().searchJql(jql).claim();
-        List<Issue> issues = new ArrayList<>(searchResult.getTotal());
+		SearchResult searchResult = jiraRestClient.getSearchClient().searchJql(jql).claim();
+		List<Issue> issues = new ArrayList<>(searchResult.getTotal());
 
-        if (log.isInfoEnabled()) {
+		if (log.isInfoEnabled()) {
 			log.info("Issues: " + searchResult.getTotal());
 		}
 
+		for (BasicIssue basicIssue : searchResult.getIssues()) {
+			issues.add(jiraRestClient.getIssueClient().getIssue(basicIssue.getKey()).claim());
+		}
 
-        for (BasicIssue basicIssue : searchResult.getIssues()) {
-            issues.add(jiraRestClient.getIssueClient().getIssue(basicIssue.getKey()).claim());
-        }
-
-
-        return issues;
+		return issues;
 	}
 
 	/**
@@ -136,8 +140,7 @@ public class GenerateReleaseNotesMojo extends AbstractJiraMojo {
 			log.warn("No issues found. File will not be generated.");
 			return;
 		}
-		OutputStreamWriter writer = new OutputStreamWriter(
-				new FileOutputStream(targetFile, true), "UTF8");
+		OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(targetFile, true), "UTF8");
 		PrintWriter ps = new PrintWriter(writer);
 		try {
 			if (beforeText != null) {

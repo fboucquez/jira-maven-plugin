@@ -75,8 +75,7 @@ public abstract class AbstractJiraMojo extends AbstractMojo {
 	 * @parameter property="skip"
 	 */
 	protected boolean skip;
-    protected User userClient;
-
+	protected User userClient;
 
 	/**
 	 * Load username password from settings if user has not set them in JVM
@@ -109,16 +108,17 @@ public abstract class AbstractJiraMojo extends AbstractMojo {
 			return;
 		}
 		try {
-			
+
 			loadUserInfoFromSettings();
-			
+
 			JiraRestClientFactory jiraRestClientFactory = new AsynchronousJiraRestClientFactory();
-			JiraRestClient jiraRestClient = jiraRestClientFactory.create(URI.create(jiraURL), new BasicHttpAuthenticationHandler(jiraUser, jiraPassword));
+			jiraRestClient = jiraRestClientFactory.create(URI.create(discoverJiraBaseUrl()),
+					new BasicHttpAuthenticationHandler(jiraUser, jiraPassword));
 
 			log.debug("Logging in JIRA");
 			userClient = jiraRestClient.getUserClient().getUser(jiraUser).claim();
 			log.debug("Logged in JIRA");
-			
+
 			try {
 				doExecute();
 			} finally {
@@ -130,6 +130,32 @@ public abstract class AbstractJiraMojo extends AbstractMojo {
 			log.error("Error when executing mojo", e);
 			// XXX: Por enquanto nao faz nada.
 		}
+	}
+
+	/**
+	 * Returns the base URL for jira base url
+	 * 
+	 * @return JIRA Web Service URL
+	 */
+	String discoverJiraBaseUrl() {
+		String url;
+		if (jiraURL == null) {
+			return null;
+		}
+		int projectIdx = jiraURL.indexOf("/browse");
+		if (projectIdx > -1) {
+			int lastPath = jiraURL.indexOf("/", projectIdx + 8);
+			if (lastPath == -1) {
+				lastPath = jiraURL.length();
+			}
+			if (jiraProjectKey != null) {
+				jiraProjectKey = jiraURL.substring(projectIdx + 8, lastPath);
+			}
+			url = jiraURL.substring(0, projectIdx);
+		} else {
+			url = jiraURL;
+		}
+		return url;
 	}
 
 	public abstract void doExecute() throws Exception;
