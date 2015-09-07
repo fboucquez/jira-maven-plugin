@@ -1,11 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>9</version>
-    </parent>
-    
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>9</version>
+	</parent>
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sigmalab.maven.plugins</groupId>
 	<artifactId>jira-maven-plugin</artifactId>
@@ -13,55 +14,55 @@
 	<name>Maven JIRA Plugin</name>
 	<version>0.4-SNAPSHOT</version>
 	<description>This maven plugin contains MOJOs to ease integration with JIRA</description>
-    <url>https://github.com/schrepfler/jira-maven-plugin</url>
+	<url>https://github.com/fboucquez/jira-maven-plugin</url>
 
-    <inceptionYear>2014</inceptionYear>
+	<inceptionYear>2014</inceptionYear>
 
-    <issueManagement>
-        <system>GitHub Issues</system>
-        <url>https://github.com/schrepfler/jira-maven-plugin/issues</url>
-    </issueManagement>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/fboucquez/jira-maven-plugin/issues</url>
+	</issueManagement>
 
-    <properties>
-        <maven.plugin.testing.harness.version>3.2.0</maven.plugin.testing.harness.version>
-        <maven.compiler.plugin.version>3.2</maven.compiler.plugin.version>
+	<properties>
+		<maven.plugin.testing.harness.version>3.2.0</maven.plugin.testing.harness.version>
+		<maven.compiler.plugin.version>3.2</maven.compiler.plugin.version>
 		<maven.version>3.2.5</maven.version>
-        <maven.gpg.plugin.version>1.5</maven.gpg.plugin.version>
-        <license.maven.plugin.version>1.8</license.maven.plugin.version>
-        <versions.maven.plugin.version>2.1</versions.maven.plugin.version>
-        <jira.rest.java.client.version>2.0.0-m2</jira.rest.java.client.version>
-        <jgitflow.maven.plugin.version>1.0-m4.3</jgitflow.maven.plugin.version>
-        <nexus.staging.maven.plugin.version>1.6.4</nexus.staging.maven.plugin.version>
-        <easymock.version>3.3</easymock.version>
-        <junit.version>4.12</junit.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.gpg.plugin.version>1.5</maven.gpg.plugin.version>
+		<license.maven.plugin.version>1.8</license.maven.plugin.version>
+		<versions.maven.plugin.version>2.1</versions.maven.plugin.version>
+		<jira.rest.java.client.version>2.0.0-m2</jira.rest.java.client.version>
+		<jgitflow.maven.plugin.version>1.0-m4.3</jgitflow.maven.plugin.version>
+		<nexus.staging.maven.plugin.version>1.6.4</nexus.staging.maven.plugin.version>
+		<easymock.version>3.3</easymock.version>
+		<junit.version>4.12</junit.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-    <repositories>
-        <repository>
-            <id>atlassian-public</id>
-            <url>https://maven.atlassian.com/content/repositories/atlassian-public/</url>
-            <releases>
-                <enabled>true</enabled>
-                <checksumPolicy>warn</checksumPolicy>
-            </releases>
-        </repository>
-        <!--<repository>-->
-            <!--<id>atlassian-public-snapshot</id>-->
-            <!--<url>https://maven.atlassian.com/content/repositories/atlassian-public-snapshot/</url>-->
-            <!--<snapshots>-->
-                <!--<enabled>true</enabled>-->
-                <!--<updatePolicy>daily</updatePolicy>-->
-                <!--<checksumPolicy>warn</checksumPolicy>-->
-            <!--</snapshots>-->
-            <!--<releases>-->
-                <!--<enabled>true</enabled>-->
-                <!--<checksumPolicy>warn</checksumPolicy>-->
-            <!--</releases>-->
-        <!--</repository>-->
+	<repositories>
+		<repository>
+			<id>atlassian-public</id>
+			<url>https://maven.atlassian.com/content/repositories/atlassian-public/</url>
+			<releases>
+				<enabled>true</enabled>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+		</repository>
+		<!--<repository> -->
+		<!--<id>atlassian-public-snapshot</id> -->
+		<!--<url>https://maven.atlassian.com/content/repositories/atlassian-public-snapshot/</url> -->
+		<!--<snapshots> -->
+		<!--<enabled>true</enabled> -->
+		<!--<updatePolicy>daily</updatePolicy> -->
+		<!--<checksumPolicy>warn</checksumPolicy> -->
+		<!--</snapshots> -->
+		<!--<releases> -->
+		<!--<enabled>true</enabled> -->
+		<!--<checksumPolicy>warn</checksumPolicy> -->
+		<!--</releases> -->
+		<!--</repository> -->
 	</repositories>
 
-    <pluginRepositories>
+	<pluginRepositories>
 		<pluginRepository>
 			<id>atlassian-public</id>
 			<url>https://maven.atlassian.com/content/repositories/atlassian-public/</url>
@@ -75,58 +76,63 @@
 		</pluginRepository>
 	</pluginRepositories>
 
-    <organization>
-        <name>SigmaLab</name>
-        <url>http://blog.sigmalab.net</url>
-    </organization>
+	<organization>
+		<name>SigmaLab</name>
+		<url>http://blog.sigmalab.net</url>
+	</organization>
 
-    <prerequisites>
+	<prerequisites>
 		<maven>3.0.4</maven>
 	</prerequisites>
 
-    <developers>
+	<developers>
 		<developer>
 			<id>gastaldi</id>
 			<name>George Gastaldi</name>
 			<email>gastaldi@apache.org</email>
 			<url>http://gastaldi.wordpress.com</url>
 		</developer>
-        <developer>
-            <id>schrepfler</id>
-            <email>schrepfler@gmail.com</email>
-            <name>Srdan Srepfler</name>
-            <organization>SigmaLab</organization>
-            <organizationUrl>http://blog.sigmalab.net</organizationUrl>
-            <properties>
-                <skype>schrepfler</skype>
-            </properties>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <timezone>CET</timezone>
-            <url>http://schrepfler.blogspot.com</url>
-        </developer>
+		<developer>
+			<id>schrepfler</id>
+			<email>schrepfler@gmail.com</email>
+			<name>Srdan Srepfler</name>
+			<organization>SigmaLab</organization>
+			<organizationUrl>http://blog.sigmalab.net</organizationUrl>
+			<properties>
+				<skype>schrepfler</skype>
+			</properties>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>CET</timezone>
+			<url>http://schrepfler.blogspot.com</url>
+		</developer>
+		<developer>
+			<id>fboucquez</id>
+			<name>Fernando Boucquez</name>
+			<email>fboucquez@gmail.com</email>
+		</developer>
 	</developers>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <name>Nexus Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <name>Nexus Staging Repository</name>
-            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<name>Nexus Snapshot Repository</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<name>Nexus Staging Repository</name>
+			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 			<distribution>repo</distribution>
-            <comments>A business-friendly OSS license</comments>
+			<comments>A business-friendly OSS license</comments>
 		</license>
 	</licenses>
 
@@ -136,7 +142,7 @@
 			<artifactId>jira-rest-java-client</artifactId>
 			<version>${jira.rest.java.client.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-plugin-api</artifactId>
@@ -174,35 +180,35 @@
 		<url>https://github.com/schrepfler/jira-maven-plugin</url>
 	</scm>
 	<build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven.compiler.plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>license-maven-plugin</artifactId>
-                    <version>${license.maven.plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>versions-maven-plugin</artifactId>
-                    <version>${versions.maven.plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>external.atlassian.jgitflow</groupId>
-                    <artifactId>jgitflow-maven-plugin</artifactId>
-                    <version>${jgitflow.maven.plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>${nexus.staging.maven.plugin.version}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven.compiler.plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>${license.maven.plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<version>${versions.maven.plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>external.atlassian.jgitflow</groupId>
+					<artifactId>jgitflow-maven-plugin</artifactId>
+					<version>${jgitflow.maven.plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.sonatype.plugins</groupId>
+					<artifactId>nexus-staging-maven-plugin</artifactId>
+					<version>${nexus.staging.maven.plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -212,77 +218,77 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>external.atlassian.jgitflow</groupId>
-                <artifactId>jgitflow-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>external.atlassian.jgitflow</groupId>
+				<artifactId>jgitflow-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>dependency-updates-report</report>
-                            <report>plugin-updates-report</report>
-                            <report>property-updates-report</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-        </plugins>
-    </reporting>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>dependency-updates-report</report>
+							<report>plugin-updates-report</report>
+							<report>property-updates-report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
 
-    <profiles>
-        <profile>
-            <id>release-sign-artifacts</id>
-            <activation>
-                <property>
-                    <name>performRelease</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven.gpg.plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>${maven.gpg.plugin.version}</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
 
