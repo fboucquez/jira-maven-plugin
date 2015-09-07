@@ -8,7 +8,7 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.sigmalab.maven.plugins</groupId>
+	<groupId>net.fboucquez.maven.plugins</groupId>
 	<artifactId>jira-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
 	<name>Maven JIRA Plugin</name>
